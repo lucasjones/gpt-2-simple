@@ -582,20 +582,25 @@ def get_tarfile_name(checkpoint_folder):
 
 def copy_checkpoint_to_gdrive(run_name='run1', copy_folder=False):
     """Copies the checkpoint folder to a mounted Google Drive."""
+    print("Copying run {} to google drive...".format(run_name))
     is_mounted()
 
     checkpoint_folder = os.path.join('checkpoint', run_name)
 
     if copy_folder:
         shutil.copytree(checkpoint_folder, "/content/drive/My Drive/" + checkpoint_folder)
+        print("Folder copied!")
     else:
+        print("Creating tar file...")
         file_path = get_tarfile_name(checkpoint_folder)
 
         # Reference: https://stackoverflow.com/a/17081026
         with tarfile.open(file_path, 'w') as tar:
             tar.add(checkpoint_folder)
+        print("Tar created!")
 
         shutil.copyfile(file_path, "/content/drive/My Drive/" + file_path)
+        print("File copied!")
 
 
 def copy_checkpoint_from_gdrive(run_name='run1', copy_folder=False):
