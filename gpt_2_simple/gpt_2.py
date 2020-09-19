@@ -597,10 +597,10 @@ def copy_checkpoint_to_gdrive(run_name='run1', copy_folder=False):
         # Reference: https://stackoverflow.com/a/17081026
         with tarfile.open(file_path, 'w') as tar:
             tar.add(checkpoint_folder)
-        print("Tar created!")
+        print("Tar created! Copying to Drive...")
 
         shutil.copyfile(file_path, "/content/drive/My Drive/" + file_path)
-        print("File copied!")
+        print("Done copying to Drive!")
 
 
 def copy_checkpoint_from_gdrive(run_name='run1', copy_folder=False):
