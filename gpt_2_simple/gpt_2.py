@@ -291,7 +291,7 @@ def finetune(sess,
         while index < sample_num:
             out = sess.run(
                 tf_sample,
-                feed_dict={context: batch_size * [context_tokens]})
+                feed_dict={context: range(min(sample_num - index, batch_size)) * [context_tokens]})
             for i in range(min(sample_num - index, batch_size)):
                 text = enc.decode(out[i])
                 text = '======== SAMPLE {} ========\n{}\n'.format(
