@@ -326,18 +326,14 @@ def finetune(sess,
             if steps > 0 and counter == (counter_base + steps):
                 save()
                 if gdrive_save:
-                    print("Saving to google drive...")
                     copy_checkpoint_to_gdrive(run_name=run_name)
-                    print("Done!")
                 return
             if (counter - 1) % save_every == 0 and counter > 1:
                 print("Saving to filesystem...")
                 save()
-                print("Done!")
+                print("Done saving!")
                 if gdrive_save:
-                    print("Saving to google drive...")
                     copy_checkpoint_to_gdrive(run_name=run_name)
-                    print("Done!")
             if (counter - 1) % sample_every == 0 and counter > 1:
                 generate_samples()
 
@@ -582,7 +578,7 @@ def get_tarfile_name(checkpoint_folder):
 
 def copy_checkpoint_to_gdrive(run_name='run1', copy_folder=False):
     """Copies the checkpoint folder to a mounted Google Drive."""
-    print("Copying run {} to google drive...".format(run_name))
+    print("Saving {} to Google Drive...".format(run_name))
     is_mounted()
 
     checkpoint_folder = os.path.join('checkpoint', run_name)
