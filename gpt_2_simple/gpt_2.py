@@ -139,6 +139,7 @@ def finetune(sess,
              sample_every=100,
              sample_length=1023,
              sample_num=1,
+             gdrive_save=False,
              multi_gpu=False,
              save_every=1000,
              print_every=1,
@@ -324,9 +325,19 @@ def finetune(sess,
         while True:
             if steps > 0 and counter == (counter_base + steps):
                 save()
+                if gdrive_save:
+                    print("Saving to google drive...")
+                    copy_checkpoint_to_gdrive(run_name=run_name)
+                    print("Done!")
                 return
             if (counter - 1) % save_every == 0 and counter > 1:
+                print("Saving to filesystem...")
                 save()
+                print("Done!")
+                if gdrive_save:
+                    print("Saving to google drive...")
+                    copy_checkpoint_to_gdrive(run_name=run_name)
+                    print("Done!")
             if (counter - 1) % sample_every == 0 and counter > 1:
                 generate_samples()
 
