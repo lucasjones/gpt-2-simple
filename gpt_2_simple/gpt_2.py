@@ -320,6 +320,7 @@ def finetune(sess,
 
     if steps:
         steps = int(steps)
+    is_first_step = True
     
     try:
         while True:
@@ -328,7 +329,7 @@ def finetune(sess,
                 if gdrive_save:
                     copy_checkpoint_to_gdrive(run_name=run_name)
                 return
-            if (counter - 1) % save_every == 0 and counter > 1:
+            if (counter - 1) % save_every == 0 and counter > 1 and !is_first_step:
                 print("Saving to filesystem...")
                 save()
                 print("Done saving!")
@@ -363,6 +364,7 @@ def finetune(sess,
                         avg=avg_loss[0] / avg_loss[1]))
 
             counter += 1
+            is_first_step = False
     except KeyboardInterrupt:
         print('interrupted')
         save()
