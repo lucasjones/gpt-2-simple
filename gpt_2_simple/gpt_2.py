@@ -329,7 +329,7 @@ def finetune(sess,
                 if gdrive_save:
                     copy_checkpoint_to_gdrive(run_name=run_name)
                 return
-            if (counter - 1) % save_every == 0 and counter > 1 and !is_first_step:
+            if (counter - 1) % save_every == 0 and counter > 1 and not is_first_step:
                 print("Saving to filesystem...")
                 save()
                 print("Done saving!")
